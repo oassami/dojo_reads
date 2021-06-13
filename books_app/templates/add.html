@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite Books</title>
+    <!-- Bootstrap TAGS from (getbootstrap.com/docs) -->
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap TAGS -->
+</head>
+
+<body>
+    <div class="container mb-5">
+        <div class="d-flex bd-highlight border-bottom border-dark border-3">
+            <p class="p-2 flex-grow-1 bd-highlight fs-5 fw-bold">Welcome, {{request.session.first_name}}!</p>
+            <a class="d-grid mt-3" href="/books">Home</a>
+            <p class="p-3 flex-shrink-0 bd-highlight"><a href="/">Log Out</a></p>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color: red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <h4 class="mt-2">Add a New Book Tilte and a Review:</h4>
+        <form action="/books/add" method="POST">
+            {% csrf_token %}
+            <div class="row mt-3 mb-2">
+                <label class="col-2">Book Title:</label>
+                <div class="col-3">
+                    <input type="text" class="form-control" name="title" value="">
+                </div>
+            </div>
+            <label class="col-2">Author:</label>
+            <div class="row mt-3 mb-2">
+                <label class="col-2">Choose from list:</label>
+                <div class="col-3">
+                    <select class="form-select">
+                        <option selected>Select an Author</option>
+                        {% for author in all_authors %}
+                            <option value="{{author.id}}">{{author.name}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <div class="row mt-3 mb-2">
+                <label class="col-2">Or add a new author:</label>
+                <div class="col-3">
+                    <input type="text" class="form-control" name="auth_name" value="">
+                </div>
+            </div>
+            <div class="row mt-3 mb-2">
+                <label class="col-1">Review: </label>
+                <div class="col-4">
+                    <textarea class="form-control" rows="3" name="review"></textarea>
+                </div>
+            </div>
+            <div class="form-group row mt-3 mb-2">
+                <label class="col-1">Rating:</label>
+                <div class="col-1">
+                    <input type="number" class="form-control" name="rating" value="1" min='1' max="5">
+                </div>
+                <div class="col-1">stars.</div>
+            </div>
+            <div class="d-grid col-5 mx-auto mt-3 d-md-flex">
+                <button type="submit" class="btn btn-primary">Add Book & Review</button>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>

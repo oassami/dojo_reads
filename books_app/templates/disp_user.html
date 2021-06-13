@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reviews</title>
+    <!-- Bootstrap TAGS from (getbootstrap.com/docs) -->
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <!-- JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+        crossorigin="anonymous"></script>
+    <!-- Bootstrap TAGS -->
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+<body>
+    <div class="container mb-5">
+        <div class="d-flex bd-highlight border-bottom border-dark border-3">
+            <p class="p-2 flex-grow-1 bd-highlight fs-5 fw-bold">Welcome, {{request.session.first_name}}!</p>
+            <p class="p-3 flex-shrink-0 bd-highlight"><a href="/books">Home</a></p>
+            <p class="p-3 flex-shrink-0 bd-highlight"><a href="/">Log Out</a></p>
+        </div>
+        <div class="row">
+            <div class="col">
+                {% if messages %}
+                {% for message in messages %}
+                    <p style="color: red;">{{ message }}</p>
+                {% endfor %}
+                {% endif %}
+                <h5 class="mt-2">Name: {{this_user.first_name}} {{this_user.last_name}}</h5>
+                <h6>Email: {{this_user.email}}</h6>
+                <h6>Total Reviews: {{review_count}}</h6>
+                <h6 class="mt-4">Posted reviews on the following books:</h6>
+                {% for book in books %}
+                    <!-- <div class="border-bottom border-dark col-10 mt-2"> -->
+                        <p><a class="ms-4 mt-0" href="/books/{{book.id}}">{{book.title}}</a></p>
+                    <!-- </div> -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
