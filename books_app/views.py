@@ -5,25 +5,11 @@ from .models import *
 def index(request):
     if 'logged_in' not in request.session:
         return redirect('/')
-    this_book = Book.objects.last()
     context = {
-        'recent_book': this_book,
-        'reviews': [],
-        'books_reviewed': [],
+        'recent_reviews': Review.objects.order_by('created_at').reverse()[:3],
+        'books': Book.objects.all(),
         'this_user': User.objects.get(id=request.session['user_id']),
     }
-    if this_book:
-        reviews = this_book.book_reviews.all()
-        if reviews:
-            context['reviews'] = reviews
-    try:
-        books = Book.objects.exclude(id=this_book.id)
-        print(books)
-        for book in books:
-            if book.book_reviews.all():
-                context['books_reviewed'].append(book)
-    except:
-        pass
     return render(request, 'books.html', context)
 
 def add(request):

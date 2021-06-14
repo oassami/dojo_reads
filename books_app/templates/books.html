@@ -38,9 +38,9 @@
                     {% endfor %}
                 {% endif %}
                 <h5 class="mt-2">Recent Book Reviews:</h5>
-                <h6 class="mt-4"><a href="/books/{{recent_book.id}}">{{recent_book.title}}</a></h6>
-                {% for review in reviews %}
-                    <p class="m-0">Rating: {{review.rating}}
+                {% for review in recent_reviews %}
+                    <h6 class="mt-4"><a href="/books/{{review.book.id}}">{{review.book.title}}</a></h6>
+                    <p class="m-0">Rating:
                     {% if review.rating == 1 %}
                         <i class="fa fa-star" style="color: orange;"></i>
                         <i class="fa fa-star-o"></i>
@@ -84,8 +84,8 @@
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <ul class="list-group">
-                            {% for book_reviewed in books_reviewed %}
-                                <li class="list-group-item"><a href="/books/{{book_reviewed.id}}">{{book_reviewed.title}}</a></li>
+                            {% for book in books %}
+                                <li class="list-group-item"><a href="/books/{{book.id}}">{{book.title}}</a></li>
                             {% empty %}
                                 <li>No other books with reviews yet!</li>
                             {% endfor %}
