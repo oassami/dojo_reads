@@ -40,37 +40,13 @@
                 {% for review in reviews %}
                 <div class="border-bottom border-dark col-10 mt-2"></div>
                 <p class="m-0">Rating:
-                    {% if review.rating == 1 %}
+                {% for i in 'x'|ljust:'5' %}
+                    {% if forloop.counter <= review.rating %}
                     <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    {% elif review.rating == 2 %}
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    {% elif review.rating == 3 %}
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star-o"></i>
-                    <i class="fa fa-star-o"></i>
-                    {% elif review.rating == 4 %}
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star-o"></i>
-                    {% elif review.rating == 5 %}
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
-                    <i class="fa fa-star" style="color: orange;"></i>
+                    {% else %}
+                        <i class="fa fa-star-o"></i>
                     {% endif %}
+                {% endfor %}
                 </p>
                 <a href="/books/user/{{review.user.id}}">{{review.user.first_name}}</a> says: <i>{{review.review_text}}</i>
                 <p>Posted on: {{review.created_at}}
